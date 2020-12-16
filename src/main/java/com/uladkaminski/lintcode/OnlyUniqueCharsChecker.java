@@ -2,17 +2,25 @@ package com.uladkaminski.lintcode;
 
 public class OnlyUniqueCharsChecker {
 
-    public static boolean isUnique(String str) {
+    public boolean isUnique(String str) {
         if (str.length() > 1) {
-            for(int i =0; i < str.length(); ++i){
-                int oldLength = str.length();
-                String newStr = str.replace(String.valueOf(str.charAt(i)), "");
-                if (++oldLength != newStr.length()) return false;
+            char[] uniqueChars = new char[str.length()];
+            char[] chars = str.toCharArray();
+            for (int i =0 ; i < str.length() ; ++i ) {
+                if (arrayContains(chars[i], uniqueChars)) {
+                    return false;
+                }
+                uniqueChars[i] = chars[i];
             }
         }
-
         return true;
+    }
 
+    private boolean arrayContains(char c, char[] arr) {
+        for (char a : arr) {
+            if (a == c) return true;
+        }
+        return false;
     }
 
 }
